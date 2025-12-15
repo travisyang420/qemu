@@ -596,6 +596,11 @@ static void riscv_cpu_validate_b(RISCVCPU *cpu)
     }
 }
 
+static void riscv_cpu_validate_p(RISCVCPU *cpu)
+{
+    //do nothing now.
+}
+
 /*
  * Check consistency between chosen extensions while setting
  * cpu->cfg accordingly.
@@ -612,6 +617,10 @@ void riscv_cpu_validate_set_extensions(RISCVCPU *cpu, Error **errp)
 
     if (riscv_has_ext(env, RVB)) {
         riscv_cpu_validate_b(cpu);
+    }
+
+    if (riscv_has_ext(env, RVP)) {
+        riscv_cpu_validate_p(cpu);
     }
 
     if (riscv_has_ext(env, RVI) && riscv_has_ext(env, RVE)) {
@@ -1410,6 +1419,7 @@ static const RISCVCPUMisaExtConfig misa_ext_cfgs[] = {
     MISA_CFG(RVV, false),
     MISA_CFG(RVG, false),
     MISA_CFG(RVB, false),
+    MISA_CFG(RVP, false),
 };
 
 /*
